@@ -1,10 +1,11 @@
+
 module.exports = function(grunt) {
 
     // 1. Вся настройка находится здесь
     grunt.initConfig({
         pkg: grunt.file.readJSON('package.json'),
 
-    concat: {
+        concat: {
         dist: {
             src: [
                 'js/libs/*.js', // Все JS в папке libs
@@ -13,7 +14,6 @@ module.exports = function(grunt) {
             dest: 'js/build/production.js',
         }
     }
-
     });
 
     // 3. Тут мы указываем Grunt, что хотим использовать этот плагин
