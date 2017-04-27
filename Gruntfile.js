@@ -31,13 +31,27 @@ module.exports = function(grunt) {
                     spawn: false,
                 },
             }
+        },
+        imagemin: {
+            dynamic: {
+                files: [{
+                    expand: true,
+                    cwd: 'images/',
+                    src: ['**/*.{png,jpg,gif}'],
+                    dest: 'images/build/'
+                }]
+            }
         }
     });
 
     grunt.loadNpmTasks('grunt-contrib-concat');
     grunt.loadNpmTasks('grunt-contrib-uglify');
     grunt.loadNpmTasks('grunt-contrib-watch');
+    grunt.loadNpmTasks('grunt-contrib-imagemin');
 
-    grunt.registerTask('default', ['concat', 'uglify', 'watch']);
+
+
+
+    grunt.registerTask('default', ['concat', 'uglify', 'imagemin']);
 
 };
