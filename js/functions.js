@@ -10,7 +10,12 @@ $(document).ready(function(){
 
 
 
- 
+  $('.fa-list-ul').click(function() {
+
+      $('.navigation').slideToggle(500);
+
+    });
+
  
 
 

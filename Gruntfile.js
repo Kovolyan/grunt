@@ -26,7 +26,7 @@ module.exports = function(grunt) {
         watch: {
             scripts: {
                 files: ['js/*.js'],
-                tasks: ['concat', 'uglify'],
+                tasks: ['concat', 'uglify','imagemin'],
                 options: {
                     spawn: false,
                 },
@@ -52,6 +52,6 @@ module.exports = function(grunt) {
 
 
 
-    grunt.registerTask('default', ['concat', 'uglify', 'imagemin']);
+    grunt.registerTask('default', ['concat', 'uglify', 'imagemin','watch']);
 
 };
