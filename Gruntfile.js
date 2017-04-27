@@ -1,25 +1,34 @@
-
 module.exports = function(grunt) {
 
-    // 1. Вся настройка находится здесь
     grunt.initConfig({
+
         pkg: grunt.file.readJSON('package.json'),
 
         concat: {
-        dist: {
-            src: [
-                'js/libs/*.js', // Все JS в папке libs
-                'js/global.js'  // Конкретный файл
-            ],
-            dest: 'js/build/production.js',
-        }
-    }
+            dist: {
+                src: [
+                    'js/jquery-1.11.2.min.js',
+                    'js/jquery-ui.js',
+                    'js/libs/*.js',
+                    'js/functions.js'
+                ],
+                dest: 'js/build/production.js'
+            }
+        },
+        uglify: {
+            build: {
+                files: {
+                    'js/build/production.min.js': ['js/build/production.js']
+                }
+            }
+        },
+
+
     });
 
-    // 3. Тут мы указываем Grunt, что хотим использовать этот плагин
     grunt.loadNpmTasks('grunt-contrib-concat');
+    grunt.loadNpmTasks('grunt-contrib-uglify');
 
-    // 4. Указываем, какие задачи выполняются, когда мы вводим «grunt» в терминале
-    grunt.registerTask('default', ['concat']);
+    grunt.registerTask('default', ['concat', 'uglify']);
 
 };
