@@ -4,6 +4,18 @@ module.exports = function(grunt) {
 
         pkg: grunt.file.readJSON('package.json'),
 
+        sass: {
+            dist: {
+                options: {
+                    sourceMap: true,
+                    outputStyle: 'compressed'
+                },
+                files: {
+                    'css/global.css': 'sass/main.sass'
+                }
+            }
+        },
+
         concat: {
             dist: {
                 src: [
@@ -15,6 +27,7 @@ module.exports = function(grunt) {
                 dest: 'js/build/production.js'
             }
         },
+
         uglify: {
             build: {
                 files: {
@@ -22,24 +35,32 @@ module.exports = function(grunt) {
                 }
             }
         },
-
+      
+        // imagemin: {
+        //     dynamic: {
+        //         files: [{
+        //             expand: true,
+        //             cwd: 'images/',
+        //             src: ['**/*.{png,jpg,gif}'],
+        //             dest: 'images/build/'
+        //         }]
+        //     }
+        // },
         watch: {
-            scripts: {
-                files: ['js/*.js'],
-                tasks: ['concat', 'uglify','imagemin'],
+            sass: {
+                files: ['sass/*.sass'],
+                tasks: ['sass'],
                 options: {
                     spawn: false,
-                },
-            }
-        },
-        imagemin: {
-            dynamic: {
-                files: [{
-                    expand: true,
-                    cwd: 'images/',
-                    src: ['**/*.{png,jpg,gif}'],
-                    dest: 'images/build/'
-                }]
+                }
+            },
+
+            scripts: {
+                files: ['js/*.js'],
+                tasks: ['concat', 'uglify'],
+                options: {
+                    spawn: false,
+                }
             }
         }
     });
@@ -48,10 +69,10 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-uglify');
     grunt.loadNpmTasks('grunt-contrib-watch');
     grunt.loadNpmTasks('grunt-contrib-imagemin');
+    grunt.loadNpmTasks('grunt-sass');
 
 
 
-
-    grunt.registerTask('default', ['concat', 'uglify', 'imagemin','watch']);
+    grunt.registerTask('default', ['concat', 'uglify', /*'imagemin'*/,'sass']);
 
 };
