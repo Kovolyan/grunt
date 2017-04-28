@@ -11,10 +11,30 @@ module.exports = function(grunt) {
                     outputStyle: 'compressed'
                 },
                 files: {
-                    'css/global.css': 'sass/main.sass'
+                    'css/main.css': 'sass/main.sass'
                 }
             }
         },
+
+        sprite: {
+            all: {
+                src: 'images/sprites/*',
+                dest: 'images/sprites.png',
+                destCss: 'sass/_sprites.sass',
+                padding: 2
+            }
+        },
+
+        // imagemin: {
+        //     dynamic: {
+        //         files: [{
+        //             expand: true,
+        //             cwd: 'images/',
+        //             src: ['**/*.{png,jpg,gif}'],
+        //             dest: 'images/build/'
+        //         }]
+        //     }
+        // },
 
         concat: {
             dist: {
@@ -36,16 +56,6 @@ module.exports = function(grunt) {
             }
         },
       
-        // imagemin: {
-        //     dynamic: {
-        //         files: [{
-        //             expand: true,
-        //             cwd: 'images/',
-        //             src: ['**/*.{png,jpg,gif}'],
-        //             dest: 'images/build/'
-        //         }]
-        //     }
-        // },
         watch: {
             sass: {
                 files: ['sass/*.sass'],
@@ -53,6 +63,11 @@ module.exports = function(grunt) {
                 options: {
                     spawn: false,
                 }
+            },
+
+            sprite: {
+                files: ['images/sprites/*'],
+                tasks: ['sprite']
             },
 
             scripts: {
@@ -65,14 +80,15 @@ module.exports = function(grunt) {
         }
     });
 
+    grunt.loadNpmTasks('grunt-sass');
+    grunt.loadNpmTasks('grunt-spritesmith');
+    grunt.loadNpmTasks('grunt-contrib-imagemin');
     grunt.loadNpmTasks('grunt-contrib-concat');
     grunt.loadNpmTasks('grunt-contrib-uglify');
     grunt.loadNpmTasks('grunt-contrib-watch');
-    grunt.loadNpmTasks('grunt-contrib-imagemin');
-    grunt.loadNpmTasks('grunt-sass');
 
 
 
-    grunt.registerTask('default', ['concat', 'uglify', /*'imagemin'*/,'sass']);
+    grunt.registerTask('default', ['concat', 'uglify', /*'imagemin'*/,'sass', 'sprite']);
 
 };
